@@ -9,10 +9,10 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.task.TaskExecutor;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-@EnableBatchProcessing
 public class SpringBatchSampleApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
@@ -21,14 +21,16 @@ public class SpringBatchSampleApplication implements CommandLineRunner {
 
 
 	private final JobLauncher jobLauncher;
-	private final Job processJob;
+	private final Job processSampleTableDataJob;
+	private final TaskExecutor taskExecutor;
 
 	@Override
 	public void run(String... args) throws Exception {
 		JobParameters jobParameters = new JobParametersBuilder()
-				.addLong("time", System.currentTimeMillis())
+				.addLong("time", System.currentTimeMillis(), true)
 				.toJobParameters();
-		jobLauncher.run(processJob, jobParameters);
+
+		jobLauncher.run(processSampleTableDataJob, jobParameters);
 		System.out.println("Batch job has been invoked");
 
 		Thread.sleep(30000);

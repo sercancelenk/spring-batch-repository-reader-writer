@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${_DATASOURCE_HOST:localhost}:${_DATASOURCE_PORT:5432}/${_DATASOURCE_DB_NAME:demoDb?reWriteBatchedInserts=true}
+    url: jdbc:postgresql://${_DATASOURCE_HOST:localhost}:${_DATASOURCE_PORT:5432}/${_DATASOURCE_DB_NAME:sardisdb?reWriteBatchedInserts=true}
     driver-class-name: ${_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
-    username: ${_DATASOURCE_USER:user}
+    username: ${_DATASOURCE_USER:sardisuser}
     password: ${_DATASOURCE_PASSWORD:123456}
     hikari:
       pool-name: ${_DATASOURCE_HIKARI_POOL_NAME:SampleDatasourceHikariPool}

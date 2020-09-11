@@ -11,7 +11,7 @@ import java.util.Date;
 public class SampleTable2Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private Integer x;
     private String y;
     private Date z;

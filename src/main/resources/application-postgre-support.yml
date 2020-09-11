@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${_DATASOURCE_HOST:localhost}:${_DATASOURCE_PORT:5432}/${_DATASOURCE_DB_NAME:demoDb?reWriteBatchedInserts=true}
+    driver-class-name: ${_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    username: ${_DATASOURCE_USER:user}
+    password: ${_DATASOURCE_PASSWORD:123456}
+    hikari:
+      pool-name: ${_DATASOURCE_HIKARI_POOL_NAME:SampleDatasourceHikariPool}
+      auto-commit: ${_DATASOURCE_HIKARI_AUTO_COMMIT:false}
+      maximum-pool-size: ${_DATASOURCE_HIKARI_MAX_POOL_SIZE:10}
+      minimum-idle: ${_DATASOURCE_HIKARI_MIN_IDLE:3}
+      connectionTimeout: ${_DATASOURCE_HIKARI_CONN_TIMEOUT:10000}
+      idle-timeout: ${_DATASOURCE_HIKARI_IDLE_TIMEOUT:60000}
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: true
+      ddl-auto: ${_DATASOURCE_HIBERNATE_DDL_AUTO:update}
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate.jdbc.batch-size: ${_DATASOURCE_HIBERNATE_BATCH_SIZE:30}
+      hibernate.generate_statistics: ${_DATASOURCE_HIBERNATE_GENERATE_STATISTICS:false}
+      hibernate.order_inserts: ${_DATASOURCE_HIBERNATE_ORDER_INSERTS:true} #Optimize Batch Inserts of Parent-Child Relationships And Batch Per Transaction
+      hibernate.order_updates: ${_DATASOURCE_HIBERNATE_ORDER_UPDATES:true} #Optimize Batch Updates of Parent-Child Relationships And Batch Per Transaction
+      hibernate.dialect: ${_DATASOURCE_HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQL10Dialect}
+      #if you are using resource-local transactions (which is quite the norm when using Spring framework), you should definitely configure the connection pool (e.g. HikariCP) to disable the auto-commit commit, and provide the connection acquisition delay Hibernate configuration property
+      hibernate.connection.provider_disables_autocommit: ${_DATASOURCE_HIBERNATE_CONN_PROVIDER_DISABLES_AUTOCOMMIT:true}
+      hibernate.package_to_scan: ${_JPA_ENTITY_PACKAGES_TO_SCAN:kutla.app.persistence.domain}
+      hibernate.use-second-level-cache: false
+      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      hibernate.enable_lazy_load_no_trans: true
+  data:
+    jpa:
+      repositories:
+        enabled: true
